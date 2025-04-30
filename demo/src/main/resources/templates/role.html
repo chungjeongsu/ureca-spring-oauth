@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>역할 선택</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f0f0; }
+        .container { width: 360px; margin: 100px auto; padding: 2em; background: #fff; border-radius: 8px; }
+        h2 { text-align: center; margin-bottom: 1em; }
+        .roles { margin: 1em 0; }
+        .roles label { display: block; margin-bottom: 0.5em; cursor: pointer; }
+        .btn { display: block; width: 100%; padding: 0.75em; background: #4CAF50; color: #fff; border: none; border-radius: 4px; font-size: 1em; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>사용자 역할 선택</h2>
+
+    <form th:action="@{/users/{id}/roles(id=${user.id})}" method="post" th:object="${user}">
+        <div class="roles">
+            <label>
+                <input type="radio" name="role" value="TESTER" required
+                       th:checked="${user.roles.contains('ROLE_TESTER')}" />
+                테스터
+            </label>
+            <label>
+                <input type="radio" name="role" value="OWNER"
+                       th:checked="${user.roles.contains('ROLE_OWNER')}" />
+                사장
+            </label>
+            <label>
+                <input type="radio" name="role" value="ADMIN"
+                       th:checked="${user.roles.contains('ROLE_ADMIN')}" />
+                관리자
+            </label>
+        </div>
+
+        <button type="submit" class="btn">확인</button>
+    </form>
+</div>
+</body>
+</html>

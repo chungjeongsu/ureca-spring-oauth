@@ -16,18 +16,22 @@ spring:
   security:
     oauth2:
       client:
-        provider:
+        provider: # 카카오 서버에 요청을 보낼 때 사용할 URI 정보 지정
           kakao:
-            authorization-uri: https://kauth.kakao.com/oauth/authorize
-            token-uri: https://kauth.kakao.com/oauth/token
-            user-info-uri: https://kapi.kakao.com/v2/user/me
-            user-name-attribute: id
+            authorization-uri: https://kauth.kakao.com/oauth/authorize #카카오톡 로그인 페이지 클라이언트에게 redirect 응답을 보낸다.
+            token-uri: https://kauth.kakao.com/oauth/token #카카오톡 인가코드를 AccessToken으로 교환할 때 호출
+            user-info-uri: https://kapi.kakao.com/v2/user/me #AccessToken을 이용해 사용자 프로필 정보를 요청할 때 호출할 URL
+            user-name-attribute: id  #카카오가 반환하는 사용자 정보 중 어떤 필드를 사용할 식별자로 사용할지 지정
 
 
-        registration:
+        registration: # 우리 애플리케이션이 카카오에 클라이언트로 등록된 정보 정의
           kakao:
-            client-id: 0eb8c4ca09a90b72a9614a8addde5dd9
-            client-secret: DOnDhXoMFPFeRBMbv8bA9TIu3H4Svq5t
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
-            client-name: kakao
+            client-id: 0eb8c4ca09a90b72a9614a8addde5dd9 #카카오 개발자 센터에서 발급받은 앱 키 => 카카오 사이트 앱 키에서 rest api
+            client-secret: DOnDhXoMFPFeRBMbv8bA9TIu3H4Svq5t #카카오 개발자 센터에서 추가로 발급받은 비공개 키 => 카카오 사이트 보안에서
+            authorization-grant-type: authorization_code  #OAuth2 인가 방식
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao #사용자가 인증 후 카카오가 인가 코드를 보내주는 이 서버의 콜백 URL
+            client-authentication-method: none
+            client-name: kakao # Spring UI나 로그 등에 표시할 클라이언트 이름
+            scope:
+              - profile_nickname
+              - profile_image
