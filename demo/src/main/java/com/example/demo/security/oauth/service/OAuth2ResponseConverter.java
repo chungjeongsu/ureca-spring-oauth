@@ -1,8 +1,8 @@
-package com.example.demo.oauth.service;
+package com.example.demo.security.oauth.service;
 
-import com.example.demo.oauth.token.GoogleResponse;
-import com.example.demo.oauth.token.KakaoResponse;
-import com.example.demo.oauth.token.OAuth2Response;
+import com.example.demo.security.oauth.token.GoogleResponse;
+import com.example.demo.security.oauth.token.KakaoResponse;
+import com.example.demo.security.oauth.token.OAuth2Response;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 

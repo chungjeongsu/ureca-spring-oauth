@@ -1,9 +1,12 @@
-package com.example.demo.oauth.token;
+package com.example.demo.security.oauth.token;
 
+import com.example.demo.security.oauth.repository.role.UserRole;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 /**
@@ -20,16 +23,28 @@ public class CustomOAuth2User implements OAuth2User {
 
     @Override
     public Map<String, Object> getAttributes() {
-        return Map.of();
+        return attributes;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+            authorities.add(new SimpleGrantedAuthority(entry.getKey()));
+        }
+        return authorities;
     }
 
     @Override
     public String getName() {
-        return "";
+        return attributes.get("name").toString();
+    }
+
+    public Long getUserId(){
+        return (Long) attributes.get("id");
+    }
+
+    public UserRole getUserRole(){ //사실상 role은 하나이기 때문에 만들어줌
+        return (UserRole) attributes.get("role");
     }
 }

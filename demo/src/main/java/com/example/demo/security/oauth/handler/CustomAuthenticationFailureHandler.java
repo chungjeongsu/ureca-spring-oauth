@@ -1,4 +1,4 @@
-package com.example.demo.oauth.handler;
+package com.example.demo.security.oauth.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

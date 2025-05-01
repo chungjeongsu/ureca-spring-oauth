@@ -1,9 +1,15 @@
-package com.example.demo.oauth.handler;
+package com.example.demo.security.oauth.handler;
 
+import com.example.demo.domain.entity.User;
+import com.example.demo.domain.repository.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import java.io.IOException;
@@ -19,21 +25,19 @@ import org.springframework.web.context.request.RequestContextHolder;
  * 만약, Rest가 아닌, 서버 사이드 렌더링을 쓴다면, 젠장이다. 세션에 저장해주자.
  *
  */
+
+@RequiredArgsConstructor
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private static final String SUCCESS_REDIRECT_URL = "/home";
-    private static final String FIRST_LOGIN_REDIRECT_URL = "/user/role";
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        //성공시 리다이렉트
-        if(isFirstLogin()) response.sendRedirect(FIRST_LOGIN_REDIRECT_URL); //세션에 FIRST_LOGIN이 NULL이면 첫 로그인인것 즉, 회원가입
         response.sendRedirect(SUCCESS_REDIRECT_URL);
     }
 
-    private boolean isFirstLogin(){ //세션에 FIRST_LOGIN이 있는까?(있다면, true)
+    private boolean isNewLogin() {
         return RequestContextHolder
                 .currentRequestAttributes()
                 .getAttribute("FIRST_LOGIN", RequestAttributes.SCOPE_SESSION) != null;
-
     }
 }

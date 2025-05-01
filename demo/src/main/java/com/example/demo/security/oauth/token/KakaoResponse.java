@@ -1,4 +1,4 @@
-package com.example.demo.oauth.token;
+package com.example.demo.security.oauth.token;
 
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -9,21 +9,21 @@ public class KakaoResponse implements OAuth2Response{
 
     @Override
     public String getProvider() {
-        return "";
+        return "kakao";
     }
 
     @Override
     public String getProviderId() {
-        return "";
+        return attributes.get("sub").toString();
     }
 
     @Override
     public String getEmail() {
-        return "";
+        return attributes.get("email").toString();
     }
 
     @Override
     public String getName() {
-        return "";
+        return attributes.get("name").toString();
     }
 }

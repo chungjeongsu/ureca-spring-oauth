@@ -1,4 +1,4 @@
-package com.example.demo.oauth.token;
+package com.example.demo.security.oauth.token;
 
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
