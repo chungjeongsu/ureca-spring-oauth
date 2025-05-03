@@ -11,7 +11,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 
 
   security:
@@ -38,6 +38,6 @@ spring:
               - profile_image
 
 jwt:
-  secret: ${JWT_SECRET:juksoonjuksoonhaweeting}
+  secret: ${JWT_SECRET:KeepPushingForwardJuksunYouCanDoItStayStrong}
   access-token-validity-ms: 500000
   refresh-token-validity-ms: 604800000

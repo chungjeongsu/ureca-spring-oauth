@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("SELECT u.id FROM User u WHERE u.provider = :provider AND u.providerId = :providerId")
+    @Query("SELECT u FROM User u WHERE u.provider = :provider AND u.providerId = :providerId")
     Optional<User> findByProviderAndProviderId(
             @Param("provider") String provider,
             @Param("providerId") String providerId

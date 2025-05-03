@@ -1,9 +1,8 @@
 package com.example.demo.security.oauth.token;
 
-import com.example.demo.security.oauth.repository.role.UserRole;
+import com.example.demo.domain.entity.role.UserRole;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,36 +14,34 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
  * 젠장, 너무 좋은걸?
  */
 public class CustomOAuth2User implements OAuth2User {
-    private final Map<String, Object> attributes;
+    private final Map<String, Object> principals;
 
     public CustomOAuth2User(Map<String, Object> attributes) {
-        this.attributes = attributes;
+        this.principals = attributes;
     }
 
     @Override
     public Map<String, Object> getAttributes() {
-        return attributes;
+        return principals;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (Map.Entry<String, Object> entry : attributes.entrySet()) {
-            authorities.add(new SimpleGrantedAuthority(entry.getKey()));
-        }
+        authorities.add(new SimpleGrantedAuthority(principals.get("role").toString()));
         return authorities;
     }
 
     @Override
     public String getName() {
-        return attributes.get("name").toString();
+        return "name";
     }
 
     public Long getUserId(){
-        return (Long) attributes.get("id");
+        return (Long) principals.get("userId");
     }
 
     public UserRole getUserRole(){ //사실상 role은 하나이기 때문에 만들어줌
-        return (UserRole) attributes.get("role");
+        return UserRole.valueOf((String) principals.get("role"));
     }
 }

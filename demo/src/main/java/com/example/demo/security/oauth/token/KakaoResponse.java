@@ -5,21 +5,22 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class KakaoResponse implements OAuth2Response{
+    private final static String KAKAO_PROVIDER = "kakao";
     private final Map<String, Object> attributes;
 
     @Override
     public String getProvider() {
-        return "kakao";
+        return KAKAO_PROVIDER;
     }
 
     @Override
     public String getProviderId() {
-        return attributes.get("sub").toString();
+        return attributes.get("id").toString();
     }
 
     @Override
     public String getEmail() {
-        return attributes.get("email").toString();
+        return "ee";
     }
 
     @Override

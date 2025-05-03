@@ -1,6 +1,6 @@
 package com.example.demo.domain.entity;
 
-import com.example.demo.security.oauth.repository.role.UserRole;
+import com.example.demo.domain.entity.role.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,10 +14,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "user")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,8 +29,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
-    private Long id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "provider", nullable = false, length = 50)
     private String provider;
@@ -37,13 +41,15 @@ public class User {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole userRole;
 
-    @Column(name = "created_at", nullable = false)
+    @CreatedDate
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @LastModifiedDate
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }
