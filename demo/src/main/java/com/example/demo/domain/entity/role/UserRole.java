@@ -1,5 +1,8 @@
 package com.example.demo.domain.entity.role;
 
+import lombok.Getter;
+
+@Getter
 public enum UserRole {
     ROLE_TESTER("ROLE_TESTER"),
     ROLE_ANONYMOUS("ROLE_ANONYMOUS"),
@@ -11,7 +14,4 @@ public enum UserRole {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
 }

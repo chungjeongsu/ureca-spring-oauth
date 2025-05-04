@@ -37,9 +37,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String jwt = resolveToken(request);
-
         try{ //JWT 토큰이 정상적으로 있는 경우
+            String jwt = resolveToken(request);
             if(jwt == null) throw new JwtException("Jwt가 없음"); //아래 JWT 토큰이 아예 없거나 이상한 경우로 진행. 이게 없으면 NullPointerException
             CustomUserDetails customUserDetails = getCustomUserDetails(jwt);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
@@ -83,6 +82,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER)) {
             return bearerToken.substring(BEARER.length()).trim();
         }
-        return null;
+        throw new JwtException("Jwt 형식이 이상합니다.(Bearer 없음)");
     }
 }

@@ -64,7 +64,7 @@ public class JwtProvider {
 
     //userRole을 반환하는 메서드
     public UserRole getRole(String jwt){
-        return getClaims(jwt).get("role", UserRole.class);
+        return UserRole.valueOf(getClaims(jwt).get("role", String.class));
     }
 
     /*

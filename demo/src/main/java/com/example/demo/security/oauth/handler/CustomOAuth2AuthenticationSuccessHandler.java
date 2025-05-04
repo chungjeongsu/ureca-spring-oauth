@@ -44,6 +44,7 @@ public class CustomOAuth2AuthenticationSuccessHandler implements AuthenticationS
         String refreshToken = generateRefreshToken(userId, role);     //refresh token 생성
 
         log.info("JWT {}", BEARER + jwt);
+        log.info("Refresh-Token {}", refreshToken);
 
         refreshTokenService.save(refreshToken);                         //refresh token 저장한다. --> 서비스단에서 뭐, refreshTokenProvider 호출
         setResponseJwtAndRefreshToken(jwt, refreshToken, response);     //응답 헤더에 리프레시 토큰 넣기
